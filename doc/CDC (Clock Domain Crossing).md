@@ -3,7 +3,7 @@
 
 ## 2.0 亞穩態
 亞穩態是指在設計的正常操作期間的某個時刻，在某個持續時間內不呈現穩定的0或1狀態的信號。在多時鐘設計中，亞穩態是無法避免的，但亞穩態的有害影響可以被抵消。
-![image](https://github.com/matthew8749/Study-Room/blob/main/img_src/Sunburst%20CDC%202008/Figure%202%20-%20Metastable%20bdat1%20output%20propagating%20invalid%20data%20throughout%20the%20design.png)(圖1-異步時鐘和同步失敗)  
+![image](https://github.com/matthew8749/Study-Room/blob/main/img_src/Sunburst%20CDC%202008/Figure-1%20Asynchronous%20clocks%20and%20synchronization%20failure.png)(圖1-異步時鐘和同步失敗)  
     引用Dally和Poulton關於轉移性的書[9]：“當用時鐘對不斷變化的數據信號進行採樣時……事件的順序決定了結果。事件之間的時間差越小，確定哪個先發生的時間就越長。當兩個事件發生得非常接近時，決策過程可能需要比分配的時間更長的時間，並且會發生同步失敗。"
     圖1顯示了當在一個時鐘域中生成的信號被採樣到離第二個時鐘區域的時鐘信號的上升沿太近時發生的同步失敗。同步失敗是由於輸出變得亞穩，並且在必須再次採樣時沒有收斂到合法的穩定狀態。
 
