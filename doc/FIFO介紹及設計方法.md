@@ -16,6 +16,7 @@ FIFO的讀寫指標與時脈同步更新，資料與時脈同步在FIFO與外部
   - 讀指標（Read Pointer）&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;：指出下一筆資料要讀出的資料位置。
   - 空/滿 訊號（Empty / Full Flags）：判斷 FIFO 是否已滿或已空。
 
+- 儲存陣列通常使用 RAM (Random Access Memory) 實現。 根據 FIFO 的深度和寬度，RAM 可以是單端口 (single-port) 或雙端口 (dual-port)。 雙端口 RAM 允許同時進行讀寫操作，可以提高 FIFO 的性能。
 - RAM 的選擇會影響 FIFO 的性能和複雜度。
 
 <!-- 這句看不見，一句話的註解 -->  
