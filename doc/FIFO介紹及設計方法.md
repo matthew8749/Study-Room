@@ -59,32 +59,35 @@ clk dege來時，會讀取和寫入data
 
 
 - 定義電路介面
-``` verilog
-module sync_fifo
-#(
-  parameter                       ADR_BIT =  6,
-  parameter                       DAT_BIT = 32,
-  parameter                       WEN_BIT =  1
-)(
-  input  logic                    clk,
-  input  logic                    rst_n,
+  ``` verilog
+  module sync_fifo
+  #(
+    parameter                       ADR_BIT =  6,
+    parameter                       DAT_BIT = 32,
+    parameter                       WEN_BIT =  1
+  )(
+    input  logic                    clk,
+    input  logic                    rst_n,
 
-  //當 cs_en 為高且 wr_en 為高時，表示一個寫入請求。
-  //當 cs_en 為高且 wr_en 為低時，表示一個讀取請求。
-  //當 cs_en 為低時，表示沒有任何操作請求。
-  input  logic [WEN_BIT-1: 0]     cs_en,          // higi activ  
-  input  logic [WEN_BIT-1: 0]     wr_en,          // higi activ
-  input  logic [DAT_BIT-1: 0]     wr_dat,
+    //當 cs_en 為高且 wr_en 為高時，表示一個寫入請求。
+    //當 cs_en 為高且 wr_en 為低時，表示一個讀取請求。
+    //當 cs_en 為低時，表示沒有任何操作請求。
+    input  logic [WEN_BIT-1: 0]     cs_en,          // higi activ  
+    input  logic [WEN_BIT-1: 0]     wr_en,          // higi activ
+    input  logic [DAT_BIT-1: 0]     wr_dat,
 
 
-  output logic [DAT_BIT-1: 0]     rd_dat,
-  output logic                    fifo_full,
-  output logic                    fifo_empty,
-  output logic [ADR_BIT : 0]      fifo_count      // for testbench display
-);
-```
+    output logic [DAT_BIT-1: 0]     rd_dat,
+    output logic                    fifo_full,
+    output logic                    fifo_empty,
+    output logic [ADR_BIT : 0]      fifo_count      // for testbench display
+  );
+  ```
 
 ### 2.1 同步FIFO完整程式碼
+<details>
+  <summary>sync_fifo.sv</summary>
+
 ```verilog
 // +FHDR--------------------------------------------------------------------------------------------------------- //
 // Project ____________                                                                                           //
@@ -186,13 +189,6 @@ end
 // ***********************/**/**\**\****/**/**\**\****/**/**\**\****/**/**\**\****/**/**\**\****/**/**\**\****/**/**
 //                       /**/****\**\**/**/****\**\**/**/****\**\**/**/****\**\**/**/****\**\**/**/****\**\**/**/***
 // *********************/**/******\**\/**/******\**\/**/******\**\/**/******\**\/**/******\**\/**/******\**\/**/****
-always @ (posedge clk or negedge rst_n) begin
-  if (~rst_n) begin
-
-  end else begin
-
-  end
-end
 
  sim_ram_top #(
   .ADR_BIT ( ADR_BIT       ),
@@ -245,8 +241,14 @@ end
 
 endmodule
 ```
+</details>
+
 
 ### 2.2 同步FIFO testbench程式碼
+
+<details>
+<summary>sim_sync_fifo.sv</summary>
+
 ```verilog
 // +FHDR--------------------------------------------------------------------------------------------------------- //
 // Project ____________                                                                                           //
@@ -404,6 +406,7 @@ end
 
 endmodule
 ```
+</details>
 
 
 ### 2.3 Q&A
@@ -448,7 +451,7 @@ endmodule
 
 對於非同步FIFO來說，讀寫分別在不同clk domain，此時最核心的問題就是 **<font color=#FFF000>空/滿的判斷</font>**
 
-## 3.2 實作的非同步 FIFO 設計包含以下關鍵策略  
+### 3.2 實作的非同步 FIFO 設計包含以下關鍵策略  
 - ### 讀取與寫入操作：  
   
   ## 異步FIFO讀寫指標同步策略詳解   
@@ -543,16 +546,7 @@ endmodule
 非同步FIFO為什麼要使用格雷碼？
 非同步FIFO設計最關鍵的點是什麼？答案是「空」和「滿」的判斷。現在回想一下，我們是如何進行狀態判斷的。很簡單，分別建構讀指針和寫指針。寫指標總是指向下一個要寫的位址，而讀指標永遠指向目前要讀取的位址。再透過對讀、寫指針的比較來判斷空、滿。
 
-<details>
-  <summary>Click me</summary>
-  
-  ### Heading
-  1. Foo
-  2. Bar
-     * Baz
-     * Qux
 
-</details>
 
 <details>  
 <summary> 讀取指標、寫指標應該被同步到哪個時脈域？ </summary>  
@@ -580,3 +574,19 @@ endmodule
 # Reference
 1. [同步FIFO的兩種Verilog設計方法](https://blog.csdn.net/wuzhikaidetb/article/details/121136040)  
 2. [面試必殺技：非同步FIFO（上） -- CDC的那些事（5）](https://zhuanlan.zhihu.com/p/148175468)
+
+
+
+
+
+
+<details>
+  <summary>Click me</summary>
+  
+  ### Heading
+  1. Foo
+  2. Bar
+     * Baz
+     * Qux
+
+</details>
